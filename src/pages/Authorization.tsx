@@ -2,6 +2,16 @@ import SignUp from "../components/authorization/SignUp";
 import SignIn from "../components/authorization/SignIn";
 import LogOut from "../components/authorization/LogOut";
 
+import { auth } from "../config/firebase";
+
+auth.onAuthStateChanged((user) => {
+  if (user) {
+    console.log("user logged in: ", user.email);
+  } else {
+    console.log("user logged out");
+  }
+});
+
 const Authorization = () => {
   return (
     <div>
