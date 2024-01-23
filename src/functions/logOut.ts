@@ -1,10 +1,13 @@
 import { signOut } from "firebase/auth";
 import { auth } from "../config/firebase";
+import Cookies from "universal-cookie";
+
+const cookies = new Cookies();
 
 export const logOut = () => {
   signOut(auth)
   .then(() => {
-    console.log(auth);
+    cookies.remove("auth-token")
   })
   .catch((error) => {
     console.log(error);

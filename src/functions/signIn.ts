@@ -1,12 +1,15 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../config/firebase";
+import Cookies from "universal-cookie";
+
+const cookies = new Cookies();
 
 export const signIn = (signInEmail: string, signInPassword: string) => {
   signInWithEmailAndPassword(auth, signInEmail, signInPassword)
     .then((userCredential) => {
       // Signed in
       const user = userCredential.user;
-      console.log(user);
+      cookies.set("auth-token", user.refreshToken)
       // ...
     })
     .catch((error) => {
