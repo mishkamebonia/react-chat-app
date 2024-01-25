@@ -2,27 +2,47 @@ import NavBar from "../components/NavBar";
 
 import { TextField, Box, Grid, Button } from "@mui/material";
 import { useAuthContext } from "../providers/auth";
+import { useEffect, useState } from "react";
 
 const MainPage = () => {
   const { user } = useAuthContext();
+  const [users, setUsers] = useState([123]);
 
   console.log(user);
+
+  useEffect(() => {
+    if (user) {
+      fetch("http://localhost:5000/fir-chat-app-a2fa1/us-central1/users")
+        .then((res) => res.json())
+        .then((data) => {
+          setUsers(data);
+          console.log("users ", users);
+        });
+    }
+  }, [user]);
 
   return (
     <div>
       <NavBar />
       <Grid
-        sx={{ height: "94vh" }}
+        sx={{ height: "100vh" }}
         container
         direction="row"
         justifyContent="space-between"
         alignItems="stretch"
       >
-        <Grid item xs={2} sx={{ bgcolor: "#B9B4C7" }}>
-          <Box sx={{ p: 4 }}>12</Box>
-          <Box sx={{ p: 4 }}> 34</Box>
+        <Grid item xs={3} sx={{ bgcolor: "#B9B4C7" }}>
+          {users.map((perUser) => {
+            return (
+              <Box sx={{ p: 4 }}>
+                <Button fullWidth variant="contained" id={perUser.uid}>
+                  {perUser.email}
+                </Button>
+              </Box>
+            );
+          })}
         </Grid>
-        <Grid item xs={10} sx={{ bgcolor: "#fff" }}>
+        <Grid item xs={9} sx={{ bgcolor: "#fff" }}>
           <Grid
             container
             direction="column"
