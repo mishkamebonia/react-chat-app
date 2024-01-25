@@ -5,8 +5,8 @@ import { useAuthContext } from "../../providers/auth";
 const SignUpForm = () => {
   const { signUp } = useAuthContext();
 
-  const [signUpEmail, setSignUpEmail] = useState("");
-  const [signUpPassword, setSignUpPassword] = useState("");
+  const [signUpEmail, setSignUpEmail] = useState<string>("");
+  const [signUpPassword, setSignUpPassword] = useState<string>("");
 
   return (
     <div>
