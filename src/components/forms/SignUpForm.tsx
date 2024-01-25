@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { TextField, Button } from "@mui/material";
-import { signUp } from "../../functions/signUp";
+import { useAuthContext } from "../../providers/auth";
 
 const SignUpForm = () => {
+  const { signUp } = useAuthContext();
+
   const [signUpEmail, setSignUpEmail] = useState("");
   const [signUpPassword, setSignUpPassword] = useState("");
 

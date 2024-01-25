@@ -1,14 +1,11 @@
-import { User } from "firebase/auth";
 import NavBar from "../components/NavBar";
 
 import { TextField, Box, Grid, Button } from "@mui/material";
+import { useAuthContext } from "../providers/auth";
 
-interface Props {
-  user: User | null;
-}
+const MainPage = () => {
+  const { user } = useAuthContext();
 
-const MainPage = (props: Props) => {
-  const { user } = props;
   console.log(user);
 
   return (

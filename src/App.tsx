@@ -1,32 +1,21 @@
 import "./App.css";
-import { useEffect, useState } from "react";
-import { auth } from "./config/firebase";
 import MainPage from "./pages/MainPage";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import Cookies from "universal-cookie";
-
-const cookies = new Cookies();
+import { useAuthContext } from "./providers/auth";
 
 function App() {
-  const [user, setUser] = useState(null);
+  const { user } = useAuthContext();
 
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user: any) => {
-      setUser(user);
-      console.log("user: ", user);
-    });
-
-    return () => unsubscribe();
-  }, []);
+  console.log({ user });
 
   return (
     <BrowserRouter>
       <Routes>
         <Route
           path="/"
-          element={user ? <MainPage user={user} /> : <Navigate to="/signIn" />}
+          element={user ? <MainPage /> : <Navigate to="/signIn" />}
         />
         <Route
           path="/signIn"

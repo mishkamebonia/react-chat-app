@@ -1,7 +1,9 @@
 import { Button, Typography, Toolbar, Box, AppBar } from "@mui/material";
-import { logOut } from "../functions/logOut";
+import { useAuthContext } from "../providers/auth";
 
 export default function ButtonAppBar() {
+  const { logOut } = useAuthContext();
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
