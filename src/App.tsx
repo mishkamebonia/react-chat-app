@@ -8,13 +8,14 @@ import { useAuthContext } from "./providers/auth";
 function App() {
   const { user } = useAuthContext();
 
-  console.log({ user });
+  // console.log({ user });
 
   return (
     <BrowserRouter>
       <Routes>
         <Route
           path="/"
+          index
           element={user ? <MainPage /> : <Navigate to="/signIn" />}
         />
         <Route

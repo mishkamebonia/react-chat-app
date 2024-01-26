@@ -1,22 +1,22 @@
 import NavBar from "../components/NavBar";
-
 import { TextField, Box, Grid, Button } from "@mui/material";
 import { useAuthContext } from "../providers/auth";
 import { useEffect, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 const MainPage = () => {
   const { user } = useAuthContext();
-  const [users, setUsers] = useState([123]);
+  const [users, setUsers] = useState([]);
 
-  console.log(user);
+  // console.log(user);
 
   useEffect(() => {
     if (user) {
       fetch("http://localhost:5000/fir-chat-app-a2fa1/us-central1/users")
         .then((res) => res.json())
         .then((data) => {
+          console.log("users ", data);
           setUsers(data);
-          console.log("users ", users);
         });
     }
   }, [user]);
@@ -33,13 +33,15 @@ const MainPage = () => {
       >
         <Grid item xs={3} sx={{ bgcolor: "#B9B4C7" }}>
           {users.map((perUser) => {
-            return (
-              <Box sx={{ p: 4 }}>
-                <Button fullWidth variant="contained" id={perUser.uid}>
-                  {perUser.email}
-                </Button>
-              </Box>
-            );
+            if (user.email !== perUser.email) {
+              return (
+                <Box key={perUser.uid} sx={{ p: 4 }}>
+                  <Button fullWidth variant="contained">
+                    {perUser.email}
+                  </Button>
+                </Box>
+              );
+            }
           })}
         </Grid>
         <Grid item xs={9} sx={{ bgcolor: "#fff" }}>
