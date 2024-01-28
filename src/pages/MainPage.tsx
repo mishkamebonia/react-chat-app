@@ -2,11 +2,12 @@ import NavBar from "../components/NavBar";
 import { TextField, Box, Grid, Button } from "@mui/material";
 import { useAuthContext } from "../providers/auth";
 import { useEffect, useState } from "react";
-import { v4 as uuidv4 } from "uuid";
+import { useNavigate } from "react-router-dom";
 
 const MainPage = () => {
   const { user } = useAuthContext();
   const [users, setUsers] = useState([]);
+  const navigate = useNavigate();
 
   // console.log(user);
 
@@ -20,6 +21,11 @@ const MainPage = () => {
         });
     }
   }, [user]);
+
+  const onClickUserBtn = (id: string) => {
+    navigate(`${id}`);
+    console.log(id);
+  };
 
   return (
     <div>
@@ -36,7 +42,11 @@ const MainPage = () => {
             if (user.email !== perUser.email) {
               return (
                 <Box key={perUser.uid} sx={{ p: 4 }}>
-                  <Button fullWidth variant="contained">
+                  <Button
+                    fullWidth
+                    variant="contained"
+                    onClick={() => onClickUserBtn(perUser.uid)}
+                  >
                     {perUser.email}
                   </Button>
                 </Box>
