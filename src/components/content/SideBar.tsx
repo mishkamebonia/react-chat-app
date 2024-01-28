@@ -5,7 +5,6 @@ import { useAuthContext } from "../../providers/auth";
 const SideBar = (props) => {
   const { users } = props;
   const { user } = useAuthContext();
-
   const navigate = useNavigate();
 
   const onClickUserBtn = (id: string) => {
