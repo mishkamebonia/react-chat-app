@@ -1,9 +1,32 @@
-import { TextField, Grid, Button } from "@mui/material";
+import {
+  TextField,
+  Grid,
+  Button,
+  Box,
+  Avatar,
+  Typography,
+} from "@mui/material";
+import MessageIcon from "@mui/icons-material/Message";
 
 const Content = () => {
   return (
     <Grid item xs={9} sx={{ bgcolor: "#fff" }}>
-      <Grid
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        flexDirection="column"
+        height="100vh"
+      >
+        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+          <MessageIcon />
+        </Avatar>
+        <Typography variant="h5" sx={{ m: 1 }}>
+          Your messages
+        </Typography>
+        <p>Send private messages to a friend</p>
+      </Box>
+      {/* <Grid
         container
         direction="column"
         justifyContent="space-between"
@@ -30,7 +53,7 @@ const Content = () => {
             </Grid>
           </Grid>
         </Grid>
-      </Grid>
+      </Grid> */}
     </Grid>
   );
 };
