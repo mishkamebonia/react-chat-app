@@ -66,7 +66,6 @@ function App() {
           path="/signUp"
           element={user ? <Navigate to="/" /> : <SignUp />}
         />
-        <Route path="/logout" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>
   );
