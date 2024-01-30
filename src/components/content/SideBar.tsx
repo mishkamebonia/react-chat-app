@@ -1,16 +1,21 @@
 import { Box, Grid, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../providers/auth";
+import { useState } from "react";
 
 const SideBar = (props) => {
-  const { users } = props;
+  const { users, chatLink, setChatLink } = props;
   const { user } = useAuthContext();
   const navigate = useNavigate();
 
   const onClickUserBtn = (id: string) => {
-    const url = id + user.uid;
-    navigate(`${url}`);
-    console.log(url);
+    if (id > user.uid) {
+      setChatLink(`${id + user.uid}`);
+      return navigate(chatLink);
+    } else {
+      setChatLink(`${user.uid + id}`);
+      return navigate(chatLink);
+    }
   };
 
   return (
