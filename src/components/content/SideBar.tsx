@@ -8,8 +8,9 @@ const SideBar = (props) => {
   const navigate = useNavigate();
 
   const onClickUserBtn = (id: string) => {
-    navigate(`${id}`);
-    console.log(id);
+    const url = id + user.uid;
+    navigate(`${url}`);
+    console.log(url);
   };
 
   return (

@@ -1,9 +1,9 @@
 import NavBar from "../components/content/NavBar";
+import SideBar from "../components/content/SideBar";
+import Content from "../components/content/Content";
 import { Grid } from "@mui/material";
 import { useAuthContext } from "../providers/auth";
 import { useEffect, useState } from "react";
-import SideBar from "../components/content/SideBar";
-import Content from "../components/content/Content";
 
 const MainPage = () => {
   const { user } = useAuthContext();

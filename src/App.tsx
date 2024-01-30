@@ -2,7 +2,12 @@ import "./App.css";
 import MainPage from "./pages/MainPage";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import { useAuthContext } from "./providers/auth";
 
 function App() {
@@ -11,7 +16,7 @@ function App() {
   // console.log({ user });
 
   return (
-    <BrowserRouter>
+    <Router>
       <Routes>
         <Route
           path="/"
@@ -27,7 +32,7 @@ function App() {
           element={user ? <Navigate to="/" /> : <SignUp />}
         />
       </Routes>
-    </BrowserRouter>
+    </Router>
   );
 }
 
