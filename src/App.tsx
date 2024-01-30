@@ -1,5 +1,4 @@
 import "./App.css";
-import MainPage from "./pages/MainPage";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import {
@@ -9,19 +8,55 @@ import {
   Navigate,
 } from "react-router-dom";
 import { useAuthContext } from "./providers/auth";
+import NavBar from "./components/content/NavBar";
+import SideBar from "./components/content/SideBar";
+import Content from "./components/content/Content";
+import { useState, useEffect } from "react";
+import { Grid } from "@mui/material";
+import Messages from "./components/content/Messages";
 
 function App() {
   const { user } = useAuthContext();
+  const [users, setUsers] = useState([]);
+  const [chatLink, setChatLink] = useState("");
 
-  // console.log({ user });
+  useEffect(() => {
+    if (user) {
+      fetch("http://localhost:5000/fir-chat-app-a2fa1/us-central1/users")
+        .then((res) => res.json())
+        .then((data) => {
+          console.log("users ", data);
+          setUsers(data);
+        });
+    }
+  }, [user]);
 
   return (
     <Router>
+      {user ? (
+        <div>
+          <NavBar></NavBar>
+          <Grid
+            sx={{ height: "100vh" }}
+            container
+            direction="row"
+            justifyContent="space-between"
+            alignItems="stretch"
+          >
+            <SideBar
+              users={users}
+              chatLink={chatLink}
+              setChatLink={setChatLink}
+            />
+            <Messages chatLink={chatLink} />
+          </Grid>
+        </div>
+      ) : null}
       <Routes>
         <Route
           path="/"
           index
-          element={user ? <MainPage /> : <Navigate to="/signIn" />}
+          element={user ? <Navigate to="/" /> : <Navigate to="/signIn" />}
         />
         <Route
           path="/signIn"
@@ -31,6 +66,7 @@ function App() {
           path="/signUp"
           element={user ? <Navigate to="/" /> : <SignUp />}
         />
+        <Route path="/logout" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>
   );
